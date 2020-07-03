@@ -200,6 +200,12 @@ window.view = {
 		this.canvasContext.restore(); // restor canvas it's initial state.
 		this.displayFigures(); // redraw graph on canvas.
 	},
+
+	restoreCanvas1 : function() {
+		this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.canvasContext.restore(); 
+		this.displayFigures1(); // redraw graph on canvas.
+	},
 	// endOfExecution: work at end of code execution and with stop button to reset whole experiment at it's initial state.
 	endOfExecution: function () {
 		this.resetButtonAndTextField();
@@ -237,7 +243,18 @@ window.view = {
  		this.canvasContext.strokeStyle = '#000000';
  		this.canvasContext.rect(75, 75, 200, 250);
  		this.canvasContext.stroke();	
- 	},
+	 },
+	 drawFillRectangle1: function () {
+		//this.getCanvas();
+		this.canvasContext.beginPath();
+		this.canvasContext.fillStyle = '#C2D995';
+		this.canvasContext.fillRect (50, 50, 200, 250);
+		this.canvasContext.strokeStyle = '#000000';
+		this.canvasContext.rect(50, 50, 200, 250);
+		this.canvasContext.stroke();	
+	},
+	
+
  	// drawCircle: draws circle on canvasContext according given x and y coordinates.
   	drawCircle: function (x, y, colour) {
  		this.canvasContext.beginPath();
@@ -271,6 +288,20 @@ window.view = {
 		this.displayText('(x3, y3)', 265, 345);
 		this.displayText('(x4, y4)', 75, 345);
 		this.canvasContext.save();
+		},
+		
+		displayFigures1: function () {
+    		this.drawDots();
+    		this.drawFillRectangle1();
+    		this.drawCircle(50, 50, '#000000');
+		this.drawCircle(250, 50, '#000000');
+		this.drawCircle(50, 300, '#000000');
+		this.drawCircle(250, 300, '#000000');
+		this.displayText('(x1, y1)', 40, 40); 
+		this.displayText('(x2, y2)', 240, 40);
+		this.displayText('(x3, y3)', 240, 290);
+		this.displayText('(x4, y4)', 50, 290);
+		this.canvasContext.save();
     	},
 	/* validationInput: check validation of input that is given by user and if input value is valid 
 	then make text field and ok button disable and make start button enable. */
@@ -287,6 +318,28 @@ window.view = {
 		}
 		model.valueOfX = Number(valueOfX);
 		model.valueOfY = Number(valueOfY);
+		/// Me -------------------------------------
+		if(this.selectedLoop.id == 'ifElseList')
+		{
+			document.getElementById("x1").innerHTML = "x1 = 050; &nbsp; y1 = 050;";
+			document.getElementById("x2").innerHTML = "x2 = 250; &nbsp; y2 = 050;";
+			document.getElementById("x3").innerHTML = "x3 = 250; &nbsp; y3 = 300;";
+			document.getElementById("x4").innerHTML = "x4 = 50; &nbsp; y4 = 300;";
+			this.clearOutputValues();
+			this.restoreCanvas1();
+			this.changePropertyOfElements();
+			this.setInnerHtml('xInnerText', model.valueOfX);
+			this.setInnerHtml('yInnerText', model.valueOfY);
+			this.drawCircle(model.valueOfX, model.valueOfY, '#FF2400');
+			this.displayTextWithColour('(x, y)', model.valueOfX + 10, model.valueOfY, '#FF2400');
+		}
+		//---------------------------------------------
+		else
+		{
+			document.getElementById("x1").innerHTML = "x1 = 075; &nbsp; y1 = 075;";
+			document.getElementById("x2").innerHTML = "x2 = 275; &nbsp; y2 = 075;";
+			document.getElementById("x3").innerHTML = "x3 = 275; &nbsp; y3 = 325;";
+			document.getElementById("x4").innerHTML = "x4 = 75; &nbsp; y4 = 325;";
 		this.clearOutputValues();
 		this.restoreCanvas();
 		this.changePropertyOfElements();
@@ -294,6 +347,7 @@ window.view = {
 		this.setInnerHtml('yInnerText', model.valueOfY);
 		this.drawCircle(model.valueOfX, model.valueOfY, '#FF2400');
 		this.displayTextWithColour('(x, y)', model.valueOfX + 10, model.valueOfY, '#FF2400');
+		}
     	},
     	// changePropertyOfElements: changes property of elemants with enableElement, disableElement and changeClass.
 	changePropertyOfElements: function () {
@@ -355,7 +409,7 @@ window.view = {
 			if (this.nextSiblingElement.id === 'codeContentIfElse4Id' || this.nextOfnextSiblingElement.id === 'codeContentIfElse6Id') {
 				if (this.nextSiblingElement.id === 'codeContentIfElse4Id') 
 					this.codeExecutionWithColour();
-				else if (model.valueOfX >= 75) 
+				else if (model.valueOfX >= 50) 
 					this.changeFlagValue('flagValue1', 'codeContentIfElse6Id', '1');
 				else
 					this.codeExecutionWithColourAndId('codeContentIfElse8Id');
@@ -363,7 +417,7 @@ window.view = {
 			if (this.nextOfnextSiblingElement.id === 'codeContentIfElse8Id' || this.nextOfnextSiblingElement.id === 'codeContentIfElse10Id') {
 				if (this.nextOfnextSiblingElement.id === 'codeContentIfElse8Id') 
 					this.codeExecutionWithColourAndId('codeContentIfElse8Id');
-				else if (model.valueOfX <= 275) 
+				else if (model.valueOfX <= 250) 
 					this.changeFlagValue('flagValue2', 'codeContentIfElse10Id', '1');
 				else
 					this.codeExecutionWithColourAndId('codeContentIfElse12Id');
@@ -371,7 +425,7 @@ window.view = {
 			if (this.nextOfnextSiblingElement.id === 'codeContentIfElse12Id' || this.nextOfnextSiblingElement.id === 'codeContentIfElse14Id') {
 				if (this.nextOfnextSiblingElement.id === 'codeContentIfElse12Id') 
 					this.codeExecutionWithColourAndId('codeContentIfElse12Id');
-				else if (model.valueOfY >= 75) 
+				else if (model.valueOfY >= 50) 
 					this.changeFlagValue('flagValue3', 'codeContentIfElse14Id', '1');
 				else
 					this.codeExecutionWithColourAndId('codeContentIfElse16Id');
@@ -379,7 +433,7 @@ window.view = {
 			if (this.nextOfnextSiblingElement.id === 'codeContentIfElse16Id' || this.nextOfnextSiblingElement.id === 'codeContentIfElse18Id') {
 				if (this.nextOfnextSiblingElement.id === 'codeContentIfElse16Id')
 					this.codeExecutionWithColourAndId('codeContentIfElse16Id');
-				else if (model.valueOfY <= 325) 
+				else if (model.valueOfY <= 300) 
 					this.changeFlagValue('flagValue4', 'codeContentIfElse18Id', '1');
 				else
 					this.codeExecutionWithColourAndId('codeContentIfElse20Id');
@@ -387,7 +441,7 @@ window.view = {
 			if (this.nextOfnextSiblingElement.id === 'codeContentIfElse20Id' || this.nextOfnextSiblingElement.id === 'codeContentIfElse22Id') {
 				if (this.nextOfnextSiblingElement.id === 'codeContentIfElse20Id') 
 					this.codeExecutionWithColourAndId('codeContentIfElse20Id');
-				else if (model.valueOfX > 75 && model.valueOfX < 275 && model.valueOfY > 75 && model.valueOfY < 325) {
+				else if (model.valueOfX > 50 && model.valueOfX < 250 && model.valueOfY > 50 && model.valueOfY < 300) {
 					this.codeExecutionWithColourAndId('codeContentIfElse22Id');
 					this.displayTextWithColour('Output: INSIDE', 100, 40, '#FF2400');
 				}
