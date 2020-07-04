@@ -14,9 +14,7 @@ window.view = {
 		return findClass[0]
 	},
 //..................................................................................................
-disableFunc: function() {
-		document.getElementById(userInput).disabled = true
-	},
+
 //..................................................................................................
 	resetVariables: function() {
 		this.numbers = new Array()
