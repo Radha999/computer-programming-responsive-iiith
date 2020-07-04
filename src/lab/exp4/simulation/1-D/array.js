@@ -13,6 +13,11 @@ window.view = {
 		var findClass = document.getElementsByClassName('showDivInRed')
 		return findClass[0]
 	},
+//..................................................................................................
+disableFunc: function() {
+		document.getElementById(userInput).disabled = true
+	},
+//..................................................................................................
 	resetVariables: function() {
 		this.numbers = new Array()
 		this.lastRedDiv = new Object()
@@ -83,10 +88,15 @@ window.view = {
 	},
 	takeInputFromRadioBox: function() {
 		var element = document.getElementsByName('radio_group')
-		if ( element[0].checked )
+//.................................................................................................................................................
+		if ( element[0].checked ){
 			this.generateRandomNumbers()
+			document.getElementById("userInput").disabled = true;
+			}
 		else if (element[1].checked)
 			this.getUserInput()
+		
+
 	},
 	createBoxes: function() {
 		for ( i = 0 ; i < this.numbers.length ; i++ ) {
